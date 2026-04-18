@@ -8,7 +8,7 @@ using FileIntegrityChecker.Utilities;
 namespace FileIntegrityChecker.UI;
 
 /// <summary>
-/// Console UI — orchestrates all user interaction via the rich interactive ASCII menu.
+/// Console UI — orchestrates all user interaction via the interactive ASCII menu.
 /// Subscribes to monitor alerts and scanner progress events.
 /// </summary>
 // OOP: Encapsulation (uses DI-injected services privately)
@@ -45,7 +45,7 @@ public class ConsoleUI
 
         while (true)
         {
-            try { Console.Clear(); } catch { /* non-interactive shell */ }
+            TryClear();
 
             ConsoleHelper.PrintMainHeader(
                 _config.DefaultAlgorithm.ToString(),
@@ -72,7 +72,7 @@ public class ConsoleUI
                     case "8": ConfigureSettings(); break;
                     case "9": ExitApp(); return;
                     default:
-                        ConsoleHelper.PrintWarning("Invalid choice. Please enter 1 – 9.");
+                        ConsoleHelper.PrintWarning("Invalid choice. Please enter 1 - 9.");
                         Pause();
                         break;
                 }
@@ -102,14 +102,14 @@ public class ConsoleUI
         Console.WriteLine();
         ConsoleHelper.TypeWriter(
             $"  Scanning with {_config.DefaultAlgorithm}",
-            ConsoleColor.DarkCyan, 15);
+            ConsoleColor.DarkGray, 15);
         Console.WriteLine();
 
         ScanReport report = scanner.Scan(dir, ScanType.Baseline);
         _monitor.SaveBaseline(report, AppConstants.SnapshotFile);
         _lastScanTime = DateTime.Now.ToString("HH:mm:ss");
 
-        ConsoleHelper.PrintPanel("Baseline Complete ✅", new[]
+        ConsoleHelper.PrintPanel("Baseline Complete", new[]
         {
             $"Directory  :  {dir}",
             $"Algorithm  :  {_config.DefaultAlgorithm}",
@@ -118,7 +118,7 @@ public class ConsoleUI
             $"Timestamp  :  {_lastScanTime}",
         }, ConsoleColor.Green);
 
-        ConsoleHelper.PrintSuccess("Baseline snapshot saved successfully!");
+        ConsoleHelper.PrintSuccess("Baseline snapshot saved successfully.");
         ConsoleHelper.PrintSubFooter();
         WaitOrBack();
     }
@@ -137,7 +137,7 @@ public class ConsoleUI
         scanner.OnProgress += (cur, tot, _) => ConsoleHelper.DrawProgressBar(cur, tot);
 
         Console.WriteLine();
-        ConsoleHelper.TypeWriter("  Running Quick Check", ConsoleColor.DarkCyan, 15);
+        ConsoleHelper.TypeWriter("  Running Quick Check", ConsoleColor.DarkGray, 15);
         ConsoleHelper.AnimateDots(3, 280);
         Console.WriteLine();
 
@@ -165,7 +165,7 @@ public class ConsoleUI
         scanner.OnProgress += (cur, tot, _) => ConsoleHelper.DrawProgressBar(cur, tot);
 
         Console.WriteLine();
-        ConsoleHelper.TypeWriter("  Running Deep Scan (SHA level analysis)", ConsoleColor.Magenta, 15);
+        ConsoleHelper.TypeWriter("  Running Deep Scan", ConsoleColor.DarkGray, 15);
         ConsoleHelper.AnimateDots(3, 300);
         Console.WriteLine();
 
@@ -176,22 +176,24 @@ public class ConsoleUI
         PrintScanResultPanel(result);
 
         // Extra: permissions table for affected files
-        var issues = result.FileRecords.Where(r => r.HasIssue() || r.Status == FileStatus.New).Take(15).ToList();
+        var issues = result.FileRecords
+            .Where(r => r.HasIssue() || r.Status == FileStatus.New)
+            .Take(15).ToList();
+
         if (issues.Any())
         {
             Console.WriteLine();
-            ConsoleHelper.PrintSubHeader("DEEP METADATA", "Top affected files with permissions");
+            ConsoleHelper.PrintSubHeader("METADATA DETAIL", "Top affected files with permission flags");
             int[] w = { 40, 12, 12 };
             ConsoleHelper.PrintTableHeader(new[] { "File Path", "Status", "Permissions" }, w);
             foreach (var r in issues)
             {
-                ConsoleColor c = r.GetStatusColor();
                 ConsoleHelper.PrintTableRow(new[]
                 {
                     r.FilePath,
                     r.Status.ToString(),
                     string.IsNullOrEmpty(r.Metadata.Permissions) ? "Normal" : r.Metadata.Permissions
-                }, w, c);
+                }, w, r.GetStatusColor());
             }
             ConsoleHelper.PrintTableFooter(w);
         }
@@ -210,13 +212,13 @@ public class ConsoleUI
 
         if (!history.Any())
         {
-            ConsoleHelper.PrintWarning("No scan history yet — run a Quick Check or Deep Scan first.");
+            ConsoleHelper.PrintWarning("No scan history yet. Run a Quick Check or Deep Scan first.");
             ConsoleHelper.PrintSubFooter();
             WaitOrBack();
             return;
         }
 
-        // OOP: Generic method use — PrintSummary<T>
+        // OOP: Generic method use
         int[] w = { 3, 9, 34, 6, 6 };
         ConsoleHelper.PrintTableHeader(new[] { "#", "Type", "Directory", "Files", "Issues" }, w);
 
@@ -249,7 +251,9 @@ public class ConsoleUI
             TryClear();
             var alerts = _monitor.GetAlertLog();
             ConsoleHelper.PrintSubHeader("ALERT LOG",
-                _monitor.AlertCount == 0 ? "No alerts — system is clean ✅" : $"{_monitor.AlertCount} alert(s) recorded");
+                _monitor.AlertCount == 0
+                    ? "No alerts -- system is clean"
+                    : $"{_monitor.AlertCount} alert(s) recorded");
 
             if (!alerts.Any())
             {
@@ -260,7 +264,7 @@ public class ConsoleUI
                 Console.WriteLine();
                 foreach (var a in alerts)
                 {
-                    ConsoleColor c = a.Contains("[FATAL]")    ? ConsoleColor.Magenta
+                    ConsoleColor c = a.Contains("[FATAL]")    ? ConsoleColor.Red
                                    : a.Contains("[CRITICAL]") ? ConsoleColor.Red
                                    : a.Contains("[WARNING]")  ? ConsoleColor.Yellow
                                    :                            ConsoleColor.Cyan;
@@ -271,7 +275,7 @@ public class ConsoleUI
             }
 
             ConsoleHelper.PrintSubFooter();
-            ConsoleHelper.PrintPrompt("Press 0 to go back  ·  Enter to refresh");
+            ConsoleHelper.PrintPrompt("0 to go back  /  Enter to refresh");
             string? ch = Console.ReadLine()?.Trim();
             if (ch == "0") return;
         }
@@ -284,7 +288,7 @@ public class ConsoleUI
         {
             TryClear();
             ConsoleHelper.PrintSubHeader("SAVED REPORTS",
-                $"Located in  →  {_config.ReportsFolder}/");
+                $"Location  ->  {_config.ReportsFolder}/");
 
             Directory.CreateDirectory(_config.ReportsFolder);
             var files = Directory.GetFiles(_config.ReportsFolder)
@@ -293,14 +297,12 @@ public class ConsoleUI
 
             if (files.Length == 0)
             {
-                ConsoleHelper.PrintWarning(
-                    "No reports found. Export a report first (Option 7).");
+                ConsoleHelper.PrintWarning("No reports found. Export a report first (Option 7).");
                 ConsoleHelper.PrintSubFooter();
                 WaitOrBack();
                 return;
             }
 
-            // List all reports in a table
             int[] w = { 3, 40, 5, 19 };
             ConsoleHelper.PrintTableHeader(new[] { "#", "Filename", "Type", "Last Modified" }, w);
             for (int i = 0; i < files.Length; i++)
@@ -317,7 +319,7 @@ public class ConsoleUI
             ConsoleHelper.PrintTableFooter(w);
 
             ConsoleHelper.PrintSubFooter();
-            ConsoleHelper.PrintPrompt($"Enter report # (1–{files.Length}) to view  ·  0 to go back");
+            ConsoleHelper.PrintPrompt($"Report number (1-{files.Length}) to open  /  0 to go back");
             string? choice = Console.ReadLine()?.Trim();
 
             if (choice == "0") return;
@@ -343,28 +345,25 @@ public class ConsoleUI
         {
             TryClear();
             ConsoleHelper.PrintSubHeader("REPORT VIEWER",
-                $"{Path.GetFileName(path)}   —   Page {page + 1} / {totalPages}");
+                $"{Path.GetFileName(path)}   --   Page {page + 1} / {totalPages}");
 
-            // Paginated display with syntax colouring
             foreach (var line in lines.Skip(page * PageSize).Take(PageSize))
             {
                 Console.ForegroundColor =
-                    line.StartsWith("===") || line.StartsWith("║") ? ConsoleColor.Cyan
-                  : line.StartsWith("---") || line.StartsWith("───") ? ConsoleColor.DarkGray
-                  : line.Contains("Modified")  ? ConsoleColor.Yellow
-                  : line.Contains("Deleted")   ? ConsoleColor.Red
-                  : line.Contains("\"New\"") || line.Contains("New,") ? ConsoleColor.Cyan
+                    line.StartsWith("===") ? ConsoleColor.Cyan
+                  : line.StartsWith("---") ? ConsoleColor.DarkGray
+                  : line.Contains("Modified") ? ConsoleColor.Yellow
+                  : line.Contains("Deleted")  ? ConsoleColor.Red
                   : ConsoleColor.Gray;
                 Console.WriteLine($"  {line}");
                 Console.ResetColor();
             }
 
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("  ──────────────────────────────────────────────────────────");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.Write("  [N] Next   [P] Previous   ");
+            ConsoleHelper.PrintSeparator();
             Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("  [N] Next   ");
+            Console.Write("[P] Previous   ");
             Console.Write("[0] Back");
             Console.ResetColor();
             Console.WriteLine();
@@ -382,12 +381,11 @@ public class ConsoleUI
     {
         TryClear();
         ConsoleHelper.PrintSubHeader("EXPORT REPORT",
-            "Save the last scan result to a file");
+            "Save the last scan result to a file in the Reports folder");
 
         if (_monitor.LastReport is null)
         {
-            ConsoleHelper.PrintWarning(
-                "No scan report available. Run a Quick Check or Deep Scan first.");
+            ConsoleHelper.PrintWarning("No scan available. Run a Quick Check or Deep Scan first.");
             ConsoleHelper.PrintSubFooter();
             WaitOrBack();
             return;
@@ -395,14 +393,14 @@ public class ConsoleUI
 
         ConsoleHelper.PrintPanel("Choose Export Format", new[]
         {
-            "[1]  📄  TXT   — Human-readable plain text",
-            "[2]  🔷  JSON  — Structured, machine-readable",
-            "[3]  📊  CSV   — Import into Excel / Google Sheets",
-            "─────────────────────────────────────────────────",
-            "[0]  ←   Back to Main Menu",
+            "[1]  TXT   -- Human-readable plain text",
+            "[2]  JSON  -- Structured, machine-readable",
+            "[3]  CSV   -- Import into Excel / spreadsheet tools",
+            "---------------------------------------------------",
+            "[0]  Back to Main Menu",
         });
 
-        ConsoleHelper.PrintPrompt("Format (1 / 2 / 3)  ·  0 to cancel");
+        ConsoleHelper.PrintPrompt("Format (1 / 2 / 3)  /  0 to cancel");
         string? fmt = Console.ReadLine()?.Trim();
         if (fmt == "0") return;
 
@@ -415,52 +413,52 @@ public class ConsoleUI
         };
 
         Console.WriteLine();
-        ConsoleHelper.TypeWriter($"  Generating {format} report", ConsoleColor.DarkCyan, 15);
+        ConsoleHelper.TypeWriter($"  Generating {format} report", ConsoleColor.DarkGray, 15);
         ConsoleHelper.AnimateDots(2, 280);
         Console.WriteLine();
 
         string filePath = _reporter.ExportReport(_monitor.LastReport, format);
-        var fi          = new FileInfo(filePath);
+        var fi = new FileInfo(filePath);
 
-        ConsoleHelper.PrintPanel("Export Successful ✅", new[]
+        ConsoleHelper.PrintPanel("Export Complete", new[]
         {
             $"Format   :  {format}",
             $"Saved to :  {filePath}",
             $"Size     :  {fi.Length:N0} bytes",
         }, ConsoleColor.Green);
 
-        ConsoleHelper.PrintSuccess("Report exported! View it via Option 6.");
+        ConsoleHelper.PrintSuccess("Report saved. View it via Option 6.");
         ConsoleHelper.PrintSubFooter();
         WaitOrBack();
     }
 
-    // ── 8. Configure Settings ────────────────────────────────────
+    // ── 8. Configure Settings ─────────────────────────────────────
     private void ConfigureSettings()
     {
         while (true)
         {
             TryClear();
             ConsoleHelper.PrintSubHeader("CONFIGURE SETTINGS",
-                "Changes are saved automatically to config.json");
+                "Changes are auto-saved to config.json on exit");
 
             ConsoleHelper.PrintPanel("Current Settings", new[]
             {
                 $"[1]  Default Directory : {_config.DefaultDirectory}",
                 $"[2]  Hash Algorithm    : {_config.DefaultAlgorithm}",
-                $"[3]  Alerts Enabled    : {(_config.EnableAlerts ? "✅  Yes" : "❌  No")}",
+                $"[3]  Alerts Enabled    : {(_config.EnableAlerts ? "Yes" : "No")}",
                 $"[4]  Reports Folder    : {_config.ReportsFolder}",
-                "─────────────────────────────────────────────────",
-                "[0]  ←  Save & Back to Main Menu",
+                "---------------------------------------------------",
+                "[0]  Save & Back to Main Menu",
             });
 
-            ConsoleHelper.PrintPrompt("Setting to change (1–4)  ·  0 to save & exit");
+            ConsoleHelper.PrintPrompt("Setting to change (1-4)  /  0 to save & exit");
             string? ch = Console.ReadLine()?.Trim();
 
             switch (ch)
             {
                 case "0":
                     _config.SaveConfig(AppConstants.ConfigFile);
-                    ConsoleHelper.PrintSuccess("Settings saved to config.json ✅");
+                    ConsoleHelper.PrintSuccess("Settings saved to config.json.");
                     Thread.Sleep(700);
                     return;
 
@@ -474,9 +472,9 @@ public class ConsoleUI
                 case "2":
                     ConsoleHelper.PrintPanel("Available Algorithms", new[]
                     {
-                        "[0]  MD5    — Fast, not recommended for security",
-                        "[1]  SHA256 — Balanced  (recommended, default)",
-                        "[2]  SHA512 — Strongest (used in Deep Scan)",
+                        "[0]  MD5    -- Fast, not recommended for security",
+                        "[1]  SHA256 -- Balanced  (recommended, default)",
+                        "[2]  SHA512 -- Strongest (used in Deep Scan)",
                     });
                     ConsoleHelper.PrintPrompt("Algorithm index (0 / 1 / 2)");
                     if (int.TryParse(Console.ReadLine(), out int idx) &&
@@ -487,7 +485,7 @@ public class ConsoleUI
                 case "3":
                     _config.EnableAlerts = !_config.EnableAlerts;
                     ConsoleHelper.PrintInfo(
-                        $"Alerts {(_config.EnableAlerts ? "enabled ✅" : "disabled ❌")}.");
+                        $"Alerts {(_config.EnableAlerts ? "enabled." : "disabled.")}");
                     Thread.Sleep(600);
                     break;
 
@@ -499,7 +497,7 @@ public class ConsoleUI
                     break;
 
                 default:
-                    ConsoleHelper.PrintWarning("Invalid choice. Enter 1–4 or 0.");
+                    ConsoleHelper.PrintWarning("Invalid choice. Enter 1-4 or 0.");
                     Pause();
                     break;
             }
@@ -516,27 +514,27 @@ public class ConsoleUI
         ConsoleHelper.TypeWriter("  Saving your configuration", ConsoleColor.DarkGray, 12);
         ConsoleHelper.AnimateDots(3, 230);
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("  ✓");
+        Console.WriteLine("  OK");
         Console.ResetColor();
         Thread.Sleep(200);
 
-        ConsoleHelper.PrintPanel("Goodbye! 🛡️", new[]
+        ConsoleHelper.PrintPanel("Goodbye", new[]
         {
             "",
             "  Thank you for using SecureScan Pro v2.0",
-            "  Your files have been monitored & protected.",
+            "  Your files have been monitored and protected.",
             "",
-            "  ─────────────────────────────────────",
+            "  -----------------------------------------",
             "  Stay Secure. Detect Changes. Trust Nothing.",
             "",
         }, ConsoleColor.Cyan);
 
-        Thread.Sleep(1100);
+        Thread.Sleep(1000);
     }
 
     // ── Shared helpers ────────────────────────────────────────────
 
-    /// <summary>Prompts for a directory and returns it, or null if user entered 0.</summary>
+    /// <summary>Prompts for a directory; returns null if user entered 0 to cancel.</summary>
     private static string? PromptDirectory(string label)
     {
         ConsoleHelper.PrintPrompt(label);
@@ -547,7 +545,7 @@ public class ConsoleUI
         return path;
     }
 
-    /// <summary>Prints the full scan summary panel + affected-file table.</summary>
+    /// <summary>Prints the full scan summary panel along with the affected-file table.</summary>
     private static void PrintScanResultPanel(ScanReport report)
     {
         int intact = report.TotalFiles - report.ModifiedCount - report.DeletedCount - report.NewCount;
@@ -558,15 +556,18 @@ public class ConsoleUI
         {
             $"Directory  :  {report.DirectoryPath}",
             $"Scan Type  :  {report.ScanType}",
-            $"Total Files:  {report.TotalFiles}",
-            $"✅ Intact   :  {intact}",
-            $"⚠️  Modified :  {report.ModifiedCount}",
-            $"🔴 Deleted  :  {report.DeletedCount}",
-            $"🔵 New      :  {report.NewCount}",
+            $"Total      :  {report.TotalFiles}",
+            $"Intact     :  {intact}",
+            $"Modified   :  {report.ModifiedCount}",
+            $"Deleted    :  {report.DeletedCount}",
+            $"New        :  {report.NewCount}",
         }, panelColor);
 
         // OOP: Extension methods + LINQ
-        var issues = report.FileRecords.Where(r => r.HasIssue() || r.Status == FileStatus.New).ToList();
+        var issues = report.FileRecords
+            .Where(r => r.HasIssue() || r.Status == FileStatus.New)
+            .ToList();
+
         if (issues.Any())
         {
             Console.WriteLine();
@@ -577,11 +578,11 @@ public class ConsoleUI
             ConsoleHelper.PrintTableFooter(w);
 
             if (issues.Count > 25)
-                ConsoleHelper.PrintInfo($"  … and {issues.Count - 25} more. Export a report for full details.");
+                ConsoleHelper.PrintInfo($"... and {issues.Count - 25} more. Export a report for full details.");
         }
         else if (report.TotalFiles > 0)
         {
-            ConsoleHelper.PrintSuccess("All files are intact — no changes detected.");
+            ConsoleHelper.PrintSuccess("All files are intact -- no changes detected.");
         }
     }
 
@@ -591,7 +592,7 @@ public class ConsoleUI
 
     private static void TryClear()
     {
-        try { Console.Clear(); } catch { /* non-interactive / piped shell */ }
+        try { Console.Clear(); } catch { /* non-interactive shell */ }
     }
 
     private static void Pause()
