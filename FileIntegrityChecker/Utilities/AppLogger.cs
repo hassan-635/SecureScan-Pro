@@ -32,7 +32,9 @@ public sealed class AppLogger
     // OOP: Private helper (encapsulated implementation)
     private void Write(string level, string message, ConsoleColor color)
     {
-        string entry = $"[{DateTime.Now:{AppConstants.DateFormat}}] [{level}] {message}";
+        // Fix: pre-format timestamp to avoid nested interpolation (CS1056)
+        string ts    = DateTime.Now.ToString(AppConstants.DateFormat);
+        string entry = $"[{ts}] [{level}] {message}";
 
         lock (_lock)   // Thread-safe file write
         {
