@@ -35,7 +35,7 @@ public class ConsoleUI
     {
         while (true)
         {
-            Console.Clear();
+            try { Console.Clear(); } catch { /* non-interactive / piped shell — ignore */ }
             ConsoleHelper.PrintHeader();
             Console.Write("\n  Enter choice (1-8): ");
             string? input = Console.ReadLine()?.Trim();
