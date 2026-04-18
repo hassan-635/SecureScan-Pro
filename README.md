@@ -370,19 +370,26 @@ dotnet run --project FileIntegrityChecker/FileIntegrityChecker.csproj
 
 ### Interactive Menu
 
-```
-╔══════════════════════════════════════════╗
-║  🛡️  FILE INTEGRITY CHECKER v2.0         ║
-╠══════════════════════════════════════════╣
-║  1. Take Baseline Snapshot               ║
-║  2. Quick Integrity Check                ║
-║  3. Deep Scan (Permissions + Metadata)   ║
-║  4. View Scan History                    ║
-║  5. Manage Alerts                        ║
-║  6. Export Report (TXT / JSON / CSV)     ║
-║  7. Configure Settings                   ║
-║  8. Exit                                 ║
-╚══════════════════════════════════════════╝
+```text
+  +==============================================================+
+  |                                                              |
+  |       S E C U R E S C A N   P R O   .   v 2 . 0            |
+  |               File Integrity Checker                         |
+  |                                                              |
+  +==============================================================+
+  |  Algo: SHA256            Last Scan: --                       |
+  |  Dir : C:\Example        None                                |
+  +--------------------------------------------------------------+
+  |  [1]  Take Baseline Snapshot                                 |
+  |  [2]  Quick Integrity Check                                  |
+  |  [3]  Deep Scan  (Permissions + Metadata)                    |
+  |  [4]  View Scan History                                      |
+  |  [5]  Manage Alerts                                          |
+  |  [6]  View Saved Reports                                     |
+  |  [7]  Export Report  (TXT / JSON / CSV)                      |
+  |  [8]  Configure Settings                                     |
+  |  [9]  Exit                                                   |
+  +==============================================================+
 ```
 
 ### Typical Workflow
@@ -436,32 +443,6 @@ The `.dockerignore` file ensures build artifacts (`bin/`, `obj/`) are excluded f
 | `Reports/report_YYYYMMDD_HHmmss.txt` | Exported TXT report |
 | `Reports/report_YYYYMMDD_HHmmss.json` | Exported JSON report |
 | `Reports/report_YYYYMMDD_HHmmss.csv` | Exported CSV report |
-
----
-
-## 📜 Git Commit History
-
-This project was built incrementally with descriptive, conventional commits:
-
-| Commit | Description |
-|---|---|
-| `aec40cf` | first commit |
-| `ac69c9f` | chore: Initialize .NET 8 console app and Docker setup |
-| `dbc8875` | chore: Move Docker and gitignore files to project root |
-| `da9b2fa` | feat: Add Enums and Structs |
-| `8a66021` | feat: Add custom exception hierarchy |
-| `b8a5a1a` | feat: Add interfaces and ScannerBase abstract class |
-| `76be4ed` | feat: Add FileRecord, ScanReport models with operator overloading and generic Repository |
-| `06c5b66` | feat: Add SealedHashAlgorithm, HashGenerator, AppConstants, ConsoleHelper, StringExtensions, FileRecordExtensions |
-| `b5a42c3` | feat: Add 3-level scanner hierarchy with delegates, events, polymorphism |
-| `e1e533b` | feat: Add IntegrityMonitor and ReportGenerator |
-| `b9103b7` | feat: Add AppConfig, ConsoleUI, and Program.cs entry point |
-| `e3a8e4d` | feat: Add AppLogger singleton with thread-safe file logging |
-| `bce5317` | feat: Add ScanValidator static helper |
-| `7161b16` | feat: Add AlertEntry and ScanSummary C# 10 record types |
-| `8ebf990` | fix: Resolve CS8618 nullable warning in ScannerBase |
-| `165dcfb` | fix: Resolve CS1056 nested interpolation in AppLogger |
-| `fe7e6af` | fix: Guard Console.Clear() in ConsoleUI for non-interactive shells |
 
 ---
 
