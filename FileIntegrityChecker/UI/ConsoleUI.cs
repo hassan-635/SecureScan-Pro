@@ -109,6 +109,9 @@ public class ConsoleUI
         _monitor.SaveBaseline(report, AppConstants.SnapshotFile);
         _lastScanTime = DateTime.Now.ToString("HH:mm:ss");
 
+        TryClear();
+        ConsoleHelper.PrintSubHeader("TAKE BASELINE SNAPSHOT", "Result");
+
         ConsoleHelper.PrintPanel("Baseline Complete", new[]
         {
             $"Directory  :  {dir}",
@@ -145,6 +148,9 @@ public class ConsoleUI
         ScanReport result  = _monitor.CompareWithBaseline(current, AppConstants.SnapshotFile);
         _lastScanTime = DateTime.Now.ToString("HH:mm:ss");
 
+        TryClear();
+        ConsoleHelper.PrintSubHeader("QUICK INTEGRITY CHECK", "Result");
+
         PrintScanResultPanel(result);
         ConsoleHelper.PrintSubFooter();
         WaitOrBack();
@@ -172,6 +178,9 @@ public class ConsoleUI
         ScanReport current = scanner.Scan(dir, ScanType.Deep);
         ScanReport result  = _monitor.CompareWithBaseline(current, AppConstants.SnapshotFile);
         _lastScanTime = DateTime.Now.ToString("HH:mm:ss");
+
+        TryClear();
+        ConsoleHelper.PrintSubHeader("DEEP SCAN", "Result");
 
         PrintScanResultPanel(result);
 
@@ -420,6 +429,10 @@ public class ConsoleUI
         string filePath = _reporter.ExportReport(_monitor.LastReport, format);
         var fi = new FileInfo(filePath);
 
+        Thread.Sleep(300);
+        TryClear();
+        ConsoleHelper.PrintSubHeader("EXPORT REPORT", "Result");
+
         ConsoleHelper.PrintPanel("Export Complete", new[]
         {
             $"Format   :  {format}",
@@ -457,9 +470,14 @@ public class ConsoleUI
             switch (ch)
             {
                 case "0":
+                    Console.WriteLine();
+                    ConsoleHelper.TypeWriter("  Saving settings", ConsoleColor.DarkGray, 15);
+                    ConsoleHelper.AnimateDots(2, 200);
                     _config.SaveConfig(AppConstants.ConfigFile);
+                    TryClear();
+                    ConsoleHelper.PrintSubHeader("CONFIGURE SETTINGS");
                     ConsoleHelper.PrintSuccess("Settings saved to config.json.");
-                    Thread.Sleep(700);
+                    Thread.Sleep(800);
                     return;
 
                 case "1":
@@ -516,8 +534,11 @@ public class ConsoleUI
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("  OK");
         Console.ResetColor();
-        Thread.Sleep(200);
+        Thread.Sleep(400);
 
+        TryClear();
+
+        Console.WriteLine("\n");
         ConsoleHelper.PrintPanel("Goodbye", new[]
         {
             "",
