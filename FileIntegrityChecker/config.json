@@ -1,0 +1,6 @@
+{
+  "DefaultDirectory": "F:\\SecureScan Pro\\FileIntegrityChecker",
+  "DefaultAlgorithm": "SHA512",
+  "EnableAlerts": true,
+  "ReportsFolder": "Reports"
+}

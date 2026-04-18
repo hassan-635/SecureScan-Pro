@@ -1,0 +1,377 @@
+﻿{
+  "ReportId": "c33c5330-397f-4233-ab8f-47833219f5ff",
+  "DirectoryPath": "F:\\phone osint",
+  "ScanType": "Deep",
+  "StartedAt": "2026-04-18T15:20:25.2124809Z",
+  "CompletedAt": "2026-04-18T15:20:25.2126102Z",
+  "TotalFiles": 52,
+  "ModifiedCount": 0,
+  "DeletedCount": 0,
+  "NewCount": 0,
+  "Files": [
+    {
+      "FilePath": "F:\\phone osint\\README.md",
+      "HashValue": "8fe6a0ad722ce8ecc7a4c56cd7e87cb44658dee2ee4b5a842c17616ff9f984f08e72dea854202768376775a83716ee8849a6074f29d9819bc2b19cb06017c0b5",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.5439778Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\requirements.txt",
+      "HashValue": "dd69c465decf184abb0c214e7c2a6db3bbd95ceab7f654abc56393646fbb326b340d2bc935242710d8e7644dc8f76a3757281e25a3616e86b57b21c8e07b0eb6",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.5609152Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\scanner.py",
+      "HashValue": "9bb2ba8b1e42180a402ba744dec790395cb1f29972d86e803bf2d1b3c3b501c5c27d9f8b0781776fac7c604f5faa80c3bbe584c1f9b3ddc8b727f323dc81d82a",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.5768514Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\COMMIT_EDITMSG",
+      "HashValue": "e8611bcbf74fd12c8d22e9db184e828ae6d6d38cf2537f003e89483f151f2714b0cc93320585cb698a151f486c61abb63491d2655bda0ee406a88ffddeb8b9bb",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.5913347Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\config",
+      "HashValue": "4d6401cb5c9a547b192c25b3c4206b28d24c6e887c05ac423a0141ae4b4de48804fde0dd6a2569b33797b44e871a091d4e1fa8f62c6cdee3b24c6ea28a99ead5",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6060245Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\description",
+      "HashValue": "f7e152f75b124c3e1c5d12f00427729d9eec4e2c1bf70d7606440a6600d003367eb178331e75ab976a61496e79c2c822020849d28ffd170946397b934611b471",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6201182Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\HEAD",
+      "HashValue": "8bc9f17f0628c3ce935ddac3d15cd482a756797f19287a4a5b96e0e3cf37cf90c421949b2e82d65714b274c8b455ac522d88123be83ee2efd85eac5fba94ca80",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6335696Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\index",
+      "HashValue": "88bea1f12ef1f179c800bc61a9b93bb195b7b5e62ee50e51ab67f550c3bd36c1aca33e795493706a8b45c44ea8bb119f537c839bd146093d626a01cca83e3614",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6471952Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\applypatch-msg.sample",
+      "HashValue": "536cce804d84e25813993efdd240537b52d00ce9cdcecf1982f85096d56a521290104c825c00b370b2752201952a9616a3f4e28c5d27a5b4e4842101a2ff9bee",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6606481Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\commit-msg.sample",
+      "HashValue": "d6bb7fa747f4625adf1877f546565cbe812ca7dd4168f7e9068e6732555d8737eba549546cf5946649e3f38de82d173aaf9c160a4c9f9445655258b4c5f955eb",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6738456Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\fsmonitor-watchman.sample",
+      "HashValue": "5168643c1768ec83554a9066754507a781b6d14251a46a469222d462efc6ca87a72c90679154e8a723349c91e7772b32ac9b08dfe313cded0ee0a6f17885079e",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6870001Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\post-update.sample",
+      "HashValue": "473ad124642571656276bf83b9ff63ab1804d3c23a5bdae52391c6f70a894849ac60c10c9d31deff3938922ce83b68b1e60c11592bbf7ea503f4acd39968cefa",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.6999432Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-applypatch.sample",
+      "HashValue": "cb78aa7e9b9c146e5db65d86dd83f04e2b6942a06fab50c704a0fd900683f3b6ad1164e74afe2f267f6da91cdff0b9ab07713e12cefc6f8d741b5df194f4fda6",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.7133698Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-commit.sample",
+      "HashValue": "4fed684b7e262fc847610ca646074fca45c3c677c40d8fb6c7ae522b9c8a9be7327b41a59b4550ceadd41edf57ec5ed07e575e02dbc6c003951e1822ac3ddd5b",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.7265003Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-merge-commit.sample",
+      "HashValue": "e4dc204494f5062efa3032b00c64707a4f38978040482501b3e085f071e3ee5a9737d537e6a52002ceb4ebe2bfe09e555c5d969581e80b3eba2a922015c67960",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.742061Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-push.sample",
+      "HashValue": "cc98bbe0e3865e2023af04416e10689e3aecd3f3928cf90c2acc0d3d7306388886779025c8967c8ea198af1f4fe29d16c65d4e1d546c7a8fa513f5ba7df16850",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.7572931Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-rebase.sample",
+      "HashValue": "00d21d5d72386c3d9b5a1c36ba85201f730556a8295d4353af54af7892ab81010d42aff209ec1fda61c54e4dda3737cea5fda64f09d40ce5004ae28239565025",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.7716642Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\pre-receive.sample",
+      "HashValue": "ee08c11fab7e896b2e09c241954ba7640338b12c75cd8040daf053c31b2f22236d7a0deac736f89d305236312fdb4f560a38d4d8debdcc9dcdd23b2d975907d5",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.784635Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\prepare-commit-msg.sample",
+      "HashValue": "50ec8a0dd98427e80a82a8d8ce44462a845876e1594c9d0e89483ce9a8aaad616edea0e5c45c1bb69d8fe7f520c6f2260d6fa350d77b400899c3ae375e965bfb",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.7975906Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\push-to-checkout.sample",
+      "HashValue": "586efb6a206f73d8a94561266153a624e2753830bc431a283bed998c46ac00a9df4995ddfd0aa852b1a22b4672c80f2c33cee3fe2e3321e392ff4cef26dbf75e",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8106579Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\sendemail-validate.sample",
+      "HashValue": "a19dbbc2ef6c367aadbfb900ae58c377d88ac9b6c0ac6de49c962d44d993418875f64143defda56bae8d0697dcd15be2928d32aa77508d3958769f18a4a53154",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8241621Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\hooks\\update.sample",
+      "HashValue": "be3780974589d06eddba6fa0aa15a3e3dfe390e2827a1a6ae5cb83d6ac47e79ef9b1bbb53f067372f8dc70db0350d3770e78537fd3cfe734200ff824eca4cada",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8373015Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\info\\exclude",
+      "HashValue": "9828c6ecdf91bf117416e17f4ee9caee2e1e37b6fb00b9ff04035ace17a3089b9d0a25c6baa1046c0e1c62d3da88838e8fca74ea82973d6b975905fde58f3072",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8498834Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\logs\\HEAD",
+      "HashValue": "143c4b14c0f023695191c4a048c4e75e36cf65e346a5685a8d0135c64e4da9d80d73871a60d74058a6aec307e1bf393ede10ae634ff225e16260a8c22d4d381e",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8631958Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\0c\\7b737a942a741127c1265cb1dd3406637cbadd",
+      "HashValue": "dd0fbc580c472da433880c3beebc9aede529a5aacb7bc61b8e1cb17586ca54b43089654b96a987d43893b5098556e5749e02e4bbbc74e2da6e5a67f5c7d46fc8",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8761914Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\0e\\9b819368b9ea5f82a8b076226929ff273d8d38",
+      "HashValue": "3bdb811aab9031065b76eb5343eb3e646925432819f55d2c5312532ad0744c869aec0ab0c5d612b5a0e39f79df0e50ab1e085b761b59906587fe6fabcf005971",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.8890214Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\0e\\f3c4d9d701d2f5ae863d2e399006ebc344c670",
+      "HashValue": "c57c0dd66a35de0612d1ee667787fff51aa26f44b13dd417f0f147556a8910a990a8ee93786c70029617981904c14b6910550b520c89f97d831ed731c7541efd",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9017294Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\13\\3062658b1b02b19c55ce4d5cb94818fb7cab90",
+      "HashValue": "325fc0d288524497633bc2a67adf36fd9d126361ee77e9dab106638e6b0d85ef22e131abdd8dbe122387003f4ce548562695d68ecff7a93ffca06586be659f1c",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9145039Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\18\\cc0e155efdf4a7f30fd8628bdfe8f071a32e43",
+      "HashValue": "b3d7a067aa518b3c1bfed518181188470c85b53a3c6891306d1e76c199394951f89f96f8b8f282011f04c9fc3ecb3fdd03ea47f9330d6e8d8658cc7fdb7f6cca",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9274331Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\32\\33de5b4f7b06896ca44255a4732becb9c96f67",
+      "HashValue": "956367c60d5e57f3c0787471cb8f348c20f7da9f3614cf0b4b8344ed13636458fdb65a7feac823f38dd07371c4ddcb3e4019ad5fa0f9ff8b5608103fc636eb45",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9406067Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\37\\53fb5214c5769815bb98722b3d607cd9e550fe",
+      "HashValue": "a9b627dada09cd221da2a3d2534997f7e4cd16b3882ccd3f2f5624ccacfbeca7898f33c9c62fc202fc13d2ec5e44ac5df77704fbb9128d5b4137d89734f6db7d",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9535259Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\47\\8d0fbc02e32a3500271e32a5f4b37b781f3d13",
+      "HashValue": "08980dbc06bb9259e4b52bf6274b71b3114e7c7594b5735471e642c09ce3dfa0dd8569432ccb937d056b695f0841c0144528b7ee8f8a116e9423500d721d3ced",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9667269Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\53\\282ba8016c0878bd55add77c65f80776fec5b4",
+      "HashValue": "912a9a5b852883696d7fda1cdf73c8ae5cdd511f228c1206ac83c191c937bb4630faffe7af7e15a4f646b4247d49277e26edc5233639013f19ca793097a9edaa",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9802071Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\5c\\21b5769274d42b1a56e75ad756976130e86b8f",
+      "HashValue": "e6d9cb6fb25db5129703e282807c3da02d3b7f815a3ab50f0aa7251313593a21dd3b6c415cea410c70949e3ca63d5954aed1c05a36e053ea56f082fa940a79e4",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:24.9932924Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\5d\\01a8b26427e07fa5433b467fce2a972c1742e9",
+      "HashValue": "9660c44b3f5964c952d177eb37e64987e8bd2a4a5fc77f8791c6e5d01fd35618b54f09fb6e302305456a400651bcc9221a715c4786d6afd3f737973c7c8edfaf",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0063912Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\5d\\1d43277e55c3f2e0cd5d2ca0f82e7cc7876716",
+      "HashValue": "7a8c7b01a6f2d3649989e3dffd5a421f3e2fbc22b666830b4f3a6f1262f2ddddf6ca1f7086fd7202da94507fd42a7de6d1b55f298d21e03f5560cc298ccf52dc",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0194688Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\6d\\f050bdd7e20160b72659aa6a2b73fd54799195",
+      "HashValue": "c0d7d47b17dcf46f05bf58263c94ea968f5d015fd99067561a772ac4a95dbf774263ecca22f10d32e17d234556af8038eac55d1c8f1e475d5a1407ab892b644a",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.032286Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\73\\c1c7bfdbf7e2819a11f959ee07d6b5e95686bf",
+      "HashValue": "2c14a3581e4f4933962128841af157e8d26037f2e92212f8374edcd7631f05c7397bd2a20ad4d120fcd280358abff46967888da9e35449f63b35e48775290a9c",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0450185Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\77\\94ba4bbb0e524d67688495cfe92662e3cfe07f",
+      "HashValue": "f2235deb55315074ffd1baf28cc614a3ef3ce96002519e33963887c3926232d3ce7492d16b9778188ef97c902bec5ff9af90206968715e73f58c1114ff4789df",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0575698Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\7a\\f9bff39f4a42a4c5d141b105887e15625819be",
+      "HashValue": "16765e8f0468ab06693c53b5640eb8d0952a835378026078629a83c98c711c497f3570b50f9e8fa5bda136964c51cf9546a51fbdd98f3a036b2fadabdfd56b05",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0696754Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\8b\\2e3a77499be9342681650cac879413b1bb665d",
+      "HashValue": "55a8bda8362591689876f22d5afc3def39a89fc70f95cd396af1ccdb12fcb9437dd13d10d595d2b89fb3fd9e1bf8748f7c23ee14302a61d895e91eaf0992d340",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0818567Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\94\\7dc814dd27a3402130001bfb2f08e610b82da0",
+      "HashValue": "91a8c5f16c7cd5fe5338b680a9fc70fce2745416a9765cc693143086b4705d9ca68ed150980e5850612cb57c3d001018fc61c58ca16956be6a7fe2517940a5cf",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.0942354Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\a5\\5da890933105a2aaeaa01ade692e337c5b977d",
+      "HashValue": "d8f1894eccef7c3a45bd4390891843676de5c8d2da620a8c130fda314ed2051dc62cbc1d3f0d5cfcaafd2864adf86e5b20c843f02a3c04c9fb5a63c60c645393",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1062444Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\d9\\624f8ca7b75f2b20aaf1cf3f74ab3ec28f0859",
+      "HashValue": "42e8f9bd697705c7ca765131f2d620280b2f31d22910cc3d2e45a79a2a0e2d9fb2c8302dab4c47024e5fee5579b255538409914836c7cf8925e2dd4c39b21974",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1176972Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\e4\\11c492b7b57329a10a2adbbbc967e0fba388ec",
+      "HashValue": "5f3e53cad05e1892f892ffb29bd5e807b7a2d9e5c5a756779960c7ccba697764a5b5faec3e605fb999f68664f6d8bc747f36c846c89ea8f9fd1806a288abbfec",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1295051Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\e4\\a0d171ebfa230082dd8df6850d227e2981a9c3",
+      "HashValue": "f0fec3b387b6bd68df1bd8bb3ce3a694dbfa043a746e2ca78acfaf9a264156f5f76369167150f5045fa209fa9224db5e2d4e56f2ebd2bfdfaa831d36aa491da7",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1415215Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\fc\\7847733b3a10d8bd2613b9b332e6fe66c24ee6",
+      "HashValue": "82f57d8c2f7179e42edd6cea6372ca5a22bda5f76dbd9d65665cdb7c57e3822d13791ea4194159da47b6a2d55682d12cedfae4fe05caeb16b14132bc180961af",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1530957Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\objects\\fe\\50bfb420c4e79547d98242bd52855081a15cf0",
+      "HashValue": "964dca5ee8ddb5ed9ef73f34b3de3a6f186e108364e6aeae3c75ba2785e74d7cbaca35b542e2420f0bc6a46ebbb2b2e7ade019840747219cc54be7abb7434a3d",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.164648Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\refs\\heads\\main",
+      "HashValue": "5fca33427bfb6ffc301a238c6720a7861c7405d0b22c5fd8193b11e7b1aef55179828405e2b9fc114fa1497ec85c8bceaed751ac728f2074da970b6a362d75a9",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1762154Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\logs\\refs\\heads\\main",
+      "HashValue": "fede2a6a12197d9b2ec2c0846d2c48d08b5050cb6abc47ef760207acb3398b1d90370a6b59a8c7fb63e00dc1f8067ab987ea76b09cb4705074634e4d7ff27c04",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.18801Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\refs\\remotes\\origin\\main",
+      "HashValue": "5fca33427bfb6ffc301a238c6720a7861c7405d0b22c5fd8193b11e7b1aef55179828405e2b9fc114fa1497ec85c8bceaed751ac728f2074da970b6a362d75a9",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.1993787Z"
+    },
+    {
+      "FilePath": "F:\\phone osint\\.git\\logs\\refs\\remotes\\origin\\main",
+      "HashValue": "1b4f1e0b9787608e8770c96da801461831533b8717e72b6ac7bdab5cbd32ad70b2e6e6991a802557715c51ce26aa51249a6e76f83aebe5898af60f939095da11",
+      "Status": "Intact",
+      "Algorithm": "SHA512",
+      "ScannedAt": "2026-04-18T15:20:25.2113Z"
+    }
+  ]
+}
