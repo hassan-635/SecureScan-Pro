@@ -13,7 +13,7 @@ namespace FileIntegrityChecker.Abstractions;
 public abstract class ScannerBase : IScannable, IAlertable
 {
     // OOP: Encapsulation - private backing field
-    private string _scannerName;
+    private string _scannerName = string.Empty;
 
     // OOP: Static field - shared across all scanner instances
     protected static int TotalScansPerformed = 0;
