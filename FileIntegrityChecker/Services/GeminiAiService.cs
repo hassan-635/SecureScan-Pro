@@ -70,8 +70,27 @@ List of affected files (if any):
 
             if (!response.IsSuccessStatusCode)
             {
-                var error = await response.Content.ReadAsStringAsync();
-                return $"API Error ({response.StatusCode}): {error}";
+                var errorJson = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    using var errorDoc = JsonDocument.Parse(errorJson);
+                    var errorMessage = errorDoc.RootElement
+                        .GetProperty("error")
+                        .GetProperty("message")
+                        .GetString();
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                    {
+                        return $"Google Gemini API is currently overloaded (503 Service Unavailable).\nThis is a temporary issue with the free tier. Please try again later.\n\nDetails: {errorMessage}";
+                    }
+
+                    return $"API Error ({response.StatusCode}): {errorMessage}";
+                }
+                catch
+                {
+                    // Fallback if the error response isn't JSON
+                    return $"API Error ({response.StatusCode}): {errorJson}";
+                }
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
