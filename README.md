@@ -10,7 +10,7 @@
 ![C#](https://img.shields.io/badge/C%23-12.0-239120?style=for-the-badge&logo=csharp)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
-![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
+![Contributions welcome](https://img.shields.io/badge/Contributions-welcome-orange.svg?style=for-the-badge)
 
 </div>
 
@@ -18,33 +18,30 @@
 
 ## 📖 Table of Contents
 
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Project Architecture](#-project-architecture)
-- [Feature Deep-Dive](#-feature-deep-dive)
-  - [1. Baseline Snapshot](#1-baseline-snapshot)
-  - [2. Quick Integrity Check](#2-quick-integrity-check)
-  - [3. Deep Scan](#3-deep-scan)
-  - [4. Scan History](#4-scan-history)
-  - [5. Alert System](#5-alert-system)
-  - [6. Report Export](#6-report-export)
-  - [7. Settings & Configuration](#7-settings--configuration)
-- [OOP Concepts Demonstrated](#-oop-concepts-demonstrated)
-- [Class Hierarchy](#-class-hierarchy)
-- [Getting Started](#-getting-started)
-- [Docker Support](#-docker-support)
-- [Git Commit History](#-git-commit-history)
+- [👨‍🏫 Project Overview (For Evaluators & Teachers)](#-project-overview-for-evaluators--teachers)
+- [✨ Key Features](#-key-features)
+- [🎓 Object-Oriented Programming (OOP) in Action](#-object-oriented-programming-oop-in-action)
+- [🏗️ Architecture & Class Hierarchy](#-architecture--class-hierarchy)
+- [🚀 Getting Started (How to Run)](#-getting-started-how-to-run)
+  - [Method 1: Standard .NET (Without Docker)](#method-1-standard-net-without-docker)
+  - [Method 2: Using Docker (Containerized)](#method-2-using-docker-containerized)
+- [💻 Interactive Workflow](#-interactive-workflow)
+- [🤝 Contributing (You're Invited!)](#-contributing-youre-invited)
 
 ---
 
-## 🌟 Overview
+## 👨‍🏫 Project Overview (For Evaluators & Teachers)
 
-**SecureScan Pro** is a fully-featured, interactive console application that monitors the integrity of files in any directory on your system. It works by taking a **cryptographic baseline snapshot** of your chosen folder and then comparing future scans against it — detecting any files that have been **modified**, **deleted**, or **newly added**.
+**Welcome to SecureScan Pro!** If you are evaluating this project, here is a simple breakdown of what it does and why it was built.
 
-Think of it as a lightweight tripwire system: once you establish a baseline, every subsequent scan will immediately flag any tampering or unexpected changes.
+**What is it?**
+SecureScan Pro is a cybersecurity tool known as a **File Integrity Checker**. It acts like a security guard for your folders. You point it at a directory, and it takes a "snapshot" (a cryptographic baseline) of every file inside. Later, you can scan that folder again, and the application will instantly tell you if any files were:
+- **Modified** (Tampered with by a hacker or malware)
+- **Deleted** (Accidentally or maliciously removed)
+- **Newly Added** (Unauthorized files dropped into the folder)
 
-> **Why does this matter?**  
-> File integrity checking is a core technique used in cybersecurity to detect malware infections, unauthorized file modifications, and accidental data corruption. Tools like AIDE, Tripwire, and Windows File Integrity Monitoring are all built on this concept.
+**Why was it built?**
+The main goal of this project is to solve a real-world cybersecurity problem while heavily utilizing **Advanced Object-Oriented Programming (OOP)** concepts in C#. It proves that complex logic can be structured cleanly using interfaces, inheritance, polymorphism, and solid design principles.
 
 ---
 
@@ -60,270 +57,41 @@ Think of it as a lightweight tripwire system: once you establish a baseline, eve
 | 🚨 **Real-Time Alerts** | Color-coded alerts for modified, deleted, and new files |
 | 📜 **Scan History** | Keeps a rolling log of the last 5 scan reports |
 | ⚙️ **Persistent Configuration** | Settings saved to `config.json` between sessions |
-| 📝 **Thread-Safe Logging** | Singleton `AppLogger` writing to `app.log` |
-| 🐳 **Docker Support** | Runs in any Docker container with a single command |
 
 ---
 
-## 🏗️ Project Architecture
+## 🎓 Object-Oriented Programming (OOP) in Action
 
-The project follows **SOLID principles** with a clean, layered folder structure:
+This project is a masterclass in OOP. Here is exactly how the 4 pillars (and more) are used to make the application scalable and robust:
 
-```
-FileIntegrityChecker/
-│
-├── 📁 Abstractions/          # Interfaces & Abstract Base Class
-│   ├── IScannable.cs         # Contract: every scanner must implement Scan()
-│   ├── IConfigurable.cs      # Contract: LoadConfig / SaveConfig
-│   ├── IHashable.cs          # Contract: ComputeHash overloads
-│   ├── IStorable.cs          # Contract: Save / Load to disk
-│   ├── IReportable.cs        # Contract: GenerateReport / ExportReport
-│   ├── IAlertable.cs         # Contract: RaiseAlert
-│   └── ScannerBase.cs        # Abstract base — shared scanner infrastructure
-│
-├── 📁 Enums/                 # All application enumerations
-│   ├── ScanType.cs           # Baseline | Quick | Deep
-│   ├── AlertLevel.cs         # Info | Warning | Critical | Fatal
-│   ├── FileStatus.cs         # Intact | Modified | Deleted | New | AccessDenied
-│   ├── HashAlgorithmType.cs  # MD5 | SHA256 | SHA512
-│   └── ReportFormat.cs       # TXT | JSON | CSV
-│
-├── 📁 Structs/               # Lightweight value types
-│   ├── FileMetadata.cs       # File size, created/modified timestamps, permissions
-│   └── HashResult.cs         # Hash value + algorithm + computed-at timestamp
-│
-├── 📁 Exceptions/            # Custom exception hierarchy
-│   ├── FileIntegrityException.cs      # Base exception for this application
-│   ├── SnapshotNotFoundException.cs   # Thrown when baseline file is missing
-│   ├── HashMismatchException.cs       # Thrown on hash comparison failure
-│   └── InvalidDirectoryException.cs   # Thrown for non-existent directories
-│
-├── 📁 Models/                # Core domain classes
-│   ├── FileRecord.cs         # Single file entry with hash + status + metadata
-│   ├── ScanReport.cs         # Full scan result (collection of FileRecords)
-│   ├── AlertEntry.cs         # Single alert log entry (C# 10 record type)
-│   └── ScanSummary.cs        # Computed summary stats (C# 10 record type)
-│
-├── 📁 Generics/              # Generic data structures
-│   └── Repository<T>.cs      # Type-safe in-memory store for any class
-│
-├── 📁 Scanners/              # Scanner hierarchy (3-level inheritance)
-│   ├── FileScanner.cs        # Level 2: Standard recursive file scanner
-│   ├── DeepFileScanner.cs    # Level 3: File scanner + permissions & metadata
-│   └── NetworkScanner.cs     # Level 2: Network path scanner (sibling branch)
-│
-├── 📁 Services/              # Core application services
-│   ├── IntegrityMonitor.cs   # Orchestrates baseline saving, comparison, alerts
-│   └── ReportGenerator.cs    # Builds and exports TXT/JSON/CSV reports
-│
-├── 📁 Storage/               # Persistence layer
-│   └── AppConfig.cs          # Reads/writes config.json (implements IConfigurable + IStorable)
-│
-├── 📁 Utilities/             # Static helpers and extensions
-│   ├── AppConstants.cs       # All magic strings/numbers in one place
-│   ├── AppLogger.cs          # Thread-safe Singleton file logger
-│   ├── ConsoleHelper.cs      # Static class for colored console output + progress bar
-│   ├── HashGenerator.cs      # Multi-algorithm hash engine with retry logic
-│   ├── SealedHashAlgorithm.cs# Sealed wrapper around .NET System.Security.Cryptography
-│   ├── ScanValidator.cs      # Static validation helpers
-│   ├── StringExtensions.cs   # Extension method: Truncate()
-│   └── FileRecordExtensions.cs # Extension methods: HasIssue(), ToSummaryLine(), GetStatusColor()
-│
-├── 📁 UI/
-│   └── ConsoleUI.cs          # Full ASCII interactive menu — wires everything together
-│
-└── Program.cs                # Entry point — manual DI, global error handler
-```
+### 1. Encapsulation (Data Hiding)
+All classes (like `FileRecord` and `AppConfig`) hide their internal states using `private` fields and only expose safe `public` properties. This prevents external code from randomly altering sensitive data like a file's hash or the application's configuration.
+
+### 2. Abstraction (Hiding Complexity)
+The project heavily uses **Interfaces** (`IScannable`, `IHashable`, `IReportable`). For example, the core system doesn't need to know *how* a report is generated; it just calls `GenerateReport()` from the `IReportable` interface. We also use an `abstract class ScannerBase` that defines the blueprint for all scanners without revealing the complex low-level file reading mechanics.
+
+### 3. Inheritance (Code Reusability)
+We have a 3-level Scanner Hierarchy:
+- `ScannerBase` (Abstract Base)
+  - ↳ `FileScanner` (Standard recursive scanner)
+      - ↳ `DeepFileScanner` (Inherits from FileScanner, adds metadata & permission checks)
+
+### 4. Polymorphism (Many Forms)
+- **Runtime Polymorphism:** When we call the `Scan()` method, the system dynamically decides whether to use the `FileScanner`'s basic scan or the `DeepFileScanner`'s advanced scan depending on the object instantiated.
+- **Compile-Time Polymorphism:** The `HashGenerator` class has multiple `ComputeHash()` overloads (e.g., passing a string path vs. passing a file stream).
+
+### Advanced C# Concepts Used
+- **Generics:** A type-safe `Repository<T>` is used to store both Scan History and Alert Logs without duplicating code.
+- **Delegates & Events:** The alert system uses `AlertHandler` delegates. When a file is modified, an event fires, and the UI responds instantly.
+- **Singleton Pattern:** The `AppLogger` ensures only one thread-safe logging instance exists globally.
 
 ---
 
-## 🔍 Feature Deep-Dive
+## 🏗️ Architecture & Class Hierarchy
 
-### 1. Baseline Snapshot
+The project is built on **SOLID principles**, keeping concerns cleanly separated into folders like `Models`, `Services`, `Scanners`, and `Storage`.
 
-**Menu Option: `1. Take Baseline Snapshot`**
-
-This is the foundation of the entire tool. When you take a baseline, the application:
-
-1. **Recursively scans** every file in your chosen directory (including all subdirectories).
-2. **Computes a cryptographic hash** for each file using your configured algorithm (MD5, SHA-256, or SHA-512).
-3. **Records file metadata** — size, creation time, last modified time.
-4. **Saves the snapshot** to `baseline_snapshot.json` on disk.
-
-After a baseline exists, every future Quick Check or Deep Scan is compared against it — any deviation is immediately flagged.
-
-```
-Enter directory path: C:\MyImportantFiles
-✅ Baseline saved — 127 files recorded.
-```
-
----
-
-### 2. Quick Integrity Check
-
-**Menu Option: `2. Quick Integrity Check`**
-
-Performs a fast hash-based comparison against the saved baseline. For each file:
-
-- If the **hash matches** → `Intact` ✅
-- If the **hash is different** → `Modified` ⚠️ — fires a `Critical` alert
-- If the **file is gone** from disk → `Deleted` 🔴 — fires a `Fatal` alert  
-- If a **new file exists** that wasn't in the baseline → `New` 🔵 — fires a `Warning` alert
-
-Results are printed in real time with a color-coded progress bar and a final summary table.
-
-```
-  Total    : 127
-  Modified : 2       ← shown in Yellow
-  Deleted  : 1       ← shown in Red
-  New      : 3       ← shown in Cyan
-```
-
----
-
-### 3. Deep Scan
-
-**Menu Option: `3. Deep Scan (Permissions + Metadata)`**
-
-Powered by the `DeepFileScanner` class, this goes beyond hashing. On top of everything a Quick Check does, it additionally captures:
-
-| Extra Info Captured | Example Value |
-|---|---|
-| **File Attributes** | `ReadOnly`, `Hidden`, `System`, `Archive` |
-| **Exact byte size** | `204,800 bytes` |
-| **UTC creation time** | `2025-01-15 09:31:02` |
-| **UTC last modified** | `2026-04-18 14:03:11` |
-
-The Deep Scan uses **SHA-512 by default** (stronger algorithm) and is ideal for auditing system directories or sensitive folders where you need a full forensic picture.
-
----
-
-### 4. Scan History
-
-**Menu Option: `4. View Scan History`**
-
-The `IntegrityMonitor` maintains a rolling in-memory history of the **last 5 scan reports** using the generic `Repository<ScanReport>`. Each history entry shows:
-
-- Scan type (Baseline / Quick / Deep)
-- Scanned directory path (truncated to 40 characters)
-- Total file count
-- Number of issues (modified + deleted)
-
-```
-  [Quick]  C:\MyImportantFiles              | Files: 127 | Issues: 3
-  [Deep]   C:\Windows\System32              | Files: 4821 | Issues: 0
-```
-
----
-
-### 5. Alert System
-
-**Menu Option: `5. Manage Alerts`**
-
-Every integrity violation fires a **real-time alert** through a custom delegate/event system. The `IntegrityMonitor` exposes:
-
-```csharp
-public delegate void AlertHandler(string message, AlertLevel level);
-public event AlertHandler? OnAlert;
-```
-
-Alerts are color-coded by severity in the console **and** persisted in an in-memory alert log viewable at any time:
-
-| Alert Level | Color | Trigger |
-|---|---|---|
-| `Info` | Cyan | General informational events |
-| `Warning` | Yellow | New (unexpected) file detected |
-| `Critical` | Red | File hash mismatch (modified) |
-| `Fatal` | Magenta | File deleted from disk |
-
----
-
-### 6. Report Export
-
-**Menu Option: `6. Export Report (TXT / JSON / CSV)`**
-
-After any scan, you can export the full report in three formats. Reports are saved to the `Reports/` folder with a timestamped filename.
-
-**TXT** — human-readable summary:
-```
-=== SCAN REPORT === 2026-04-18 19:15:30
-Directory : C:\MyImportantFiles
-Scan Type : Quick
-Total Files: 127  Modified: 2  Deleted: 1  New: 3
-------------------------------------------------------------
-[Modified] C:\MyImportantFiles\config.xml | Hash: 3f4a8b1c...
-```
-
-**JSON** — structured, machine-readable (perfect for integration with other tools):
-```json
-{
-  "ReportId": "a3f7...",
-  "ScanType": "Quick",
-  "TotalFiles": 127,
-  "ModifiedCount": 2,
-  "Files": [...]
-}
-```
-
-**CSV** — import directly into Excel or any data analysis tool:
-```
-FilePath,HashValue,Status,Algorithm,ScannedAt
-"C:\MyImportantFiles\config.xml","3f4a8b1c...","Modified","SHA256","2026-04-18T..."
-```
-
----
-
-### 7. Settings & Configuration
-
-**Menu Option: `7. Configure Settings`**
-
-All settings are persisted to `config.json` automatically. You can change:
-
-| Setting | Options | Default |
-|---|---|---|
-| **Default Directory** | Any valid path | `My Documents` |
-| **Hash Algorithm** | `MD5` / `SHA256` / `SHA512` | `SHA256` |
-| **Alerts Enabled** | Toggle on/off | `true` |
-
-The `AppConfig` class implements both `IConfigurable` and `IStorable`, cleanly separating the concern of what to store from how to store it.
-
----
-
-## 🎓 OOP Concepts Demonstrated
-
-This project was deliberately designed to showcase **every major OOP concept** in C#:
-
-| Concept | Where It's Used |
-|---|---|
-| **Encapsulation** | Private fields with validated properties in `FileRecord`, `AppConfig`, `ScannerBase` |
-| **Inheritance (3 levels)** | `ScannerBase` → `FileScanner` → `DeepFileScanner` |
-| **Abstraction** | `ScannerBase` abstract class with `abstract Scan()` method |
-| **Polymorphism (Runtime)** | `DeepFileScanner.Scan()` overrides `FileScanner.Scan()` which overrides `ScannerBase.Scan()` |
-| **Polymorphism (Compile-time)** | `HashGenerator.ComputeHash()` has 3 overloads; `ReportGenerator.GenerateReport()` has 3 overloads |
-| **Interfaces** | 6 interfaces: `IScannable`, `IConfigurable`, `IHashable`, `IStorable`, `IReportable`, `IAlertable` |
-| **Multiple Interface Implementation** | `AppConfig` implements both `IConfigurable` and `IStorable` |
-| **Delegates & Events** | `ScanProgressHandler` delegate, `OnProgress` event in `FileScanner`; `AlertHandler` delegate, `OnAlert` event in `IntegrityMonitor` |
-| **Generics** | `Repository<T>` generic class; `PrintSummary<T>()` generic method |
-| **Static Classes** | `AppConstants`, `ConsoleHelper`, `ScanValidator`, `StringExtensions` |
-| **Static Constructors** | `HashGenerator` (initializes algorithm map), `Repository<T>` (logs type initialization) |
-| **Sealed Class** | `AppLogger` (Singleton), `SealedHashAlgorithm` (prevents unsafe algorithm subclassing) |
-| **Singleton Pattern** | `AppLogger.Instance` — one global logger, thread-safe via `Lazy<T>` |
-| **Operator Overloading** | `FileRecord` overloads `==` and `!=` based on path + hash |
-| **Constructor Chaining** | `FileRecord` default → parameterized → copy constructors chain via `: this()` |
-| **Extension Methods** | `StringExtensions.Truncate()`, `FileRecordExtensions.HasIssue()`, `.ToSummaryLine()`, `.GetStatusColor()` |
-| **C# 10 Record Types** | `AlertEntry` and `ScanSummary` — immutable, value-equality, computed properties |
-| **Custom Exceptions** | `FileIntegrityException` → `SnapshotNotFoundException`, `HashMismatchException`, `InvalidDirectoryException` |
-| **LINQ** | Used throughout `IntegrityMonitor`, `ConsoleUI`, `Repository<T>` for filtering and projection |
-| **Pattern Matching** | `switch` expressions in `ConsoleUI`, `ConsoleHelper.PrintAlertColored()` |
-| **Dependency Injection (Manual)** | `Program.cs` manually composes the object graph and injects dependencies into `ConsoleUI` |
-| **Destructor / Finalizer** | `ScannerBase` and `FileScanner` define `~ClassName()` finalizers |
-| **Structs** | `FileMetadata` and `HashResult` are value types (stack-allocated, immutable) |
-
----
-
-## 🌳 Class Hierarchy
-
-```
+```text
 Object
 └── ScannerBase (abstract, implements IScannable + IAlertable)
     ├── FileScanner (concrete – standard recursive scanner)
@@ -340,141 +108,81 @@ IntegrityMonitor (implements IAlertable)
 ReportGenerator (implements IReportable)
 HashGenerator (implements IHashable)
 AppLogger (Sealed Singleton)
-SealedHashAlgorithm (Sealed)
-Repository<T> (Generic)
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (How to Run)
 
-### Prerequisites
+We’ve made it incredibly easy to run SecureScan Pro, whether you want to run it natively using the .NET SDK or containerized using Docker.
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- Windows / Linux / macOS
-- Git
+### Method 1: Standard .NET (Without Docker)
+Use this method if you have the .NET 8 SDK installed on your machine.
 
-### Clone & Run
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/SecureScan-Pro.git
+   cd "SecureScan Pro"
+   ```
+2. **Build the project:**
+   ```bash
+   dotnet build FileIntegrityChecker/FileIntegrityChecker.csproj
+   ```
+3. **Run the application:**
+   ```bash
+   dotnet run --project FileIntegrityChecker/FileIntegrityChecker.csproj
+   ```
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/SecureScan-Pro.git
-cd "SecureScan Pro"
+### Method 2: Using Docker (Containerized)
+Use this method if you don't have .NET installed, or if you want an isolated environment. **Docker must be installed and running.**
 
-# Build the project
-dotnet build FileIntegrityChecker/FileIntegrityChecker.csproj
-
-# Run the application
-dotnet run --project FileIntegrityChecker/FileIntegrityChecker.csproj
-```
-
-### Interactive Menu
-
-```text
-  +==============================================================+
-  |                                                              |
-  |       S E C U R E S C A N   P R O   .   v 2 . 0            |
-  |               File Integrity Checker                         |
-  |                                                              |
-  +==============================================================+
-  |  Algo: SHA256            Last Scan: --                       |
-  |  Dir : C:\Example        None                                |
-  +--------------------------------------------------------------+
-  |  [1]  Take Baseline Snapshot                                 |
-  |  [2]  Quick Integrity Check                                  |
-  |  [3]  Deep Scan  (Permissions + Metadata)                    |
-  |  [4]  View Scan History                                      |
-  |  [5]  Manage Alerts                                          |
-  |  [6]  View Saved Reports                                     |
-  |  [7]  Export Report  (TXT / JSON / CSV)                      |
-  |  [8]  Configure Settings                                     |
-  |  [9]  Exit                                                   |
-  +==============================================================+
-```
-
-### Typical Workflow
-
-```
-1  →  Enter a directory path  →  Baseline saved
-2  →  Same directory          →  See what changed
-6  →  Choose JSON             →  Report saved to Reports/
-```
+1. **Build the Docker Image:**
+   Open your terminal in the root project folder (where the `Dockerfile` is) and run:
+   ```bash
+   docker build -t securescan-pro .
+   ```
+2. **Run the Docker Container:**
+   Run the interactive console application inside the container:
+   ```bash
+   docker run -it securescan-pro
+   ```
+   *Note: If you want to scan files on your host machine using Docker, you will need to mount a volume (e.g., `docker run -it -v C:\MyFolder:/scan-target securescan-pro`).*
 
 ---
 
-## 🐳 Docker Support
+## 💻 Interactive Workflow
 
-The application ships with a `Dockerfile` for containerized deployments. This is especially useful for running the app on any other machine without needing to install the .NET SDK.
+When you run the app, you will be greeted with a stunning, interactive ASCII console interface.
 
-### Build and Run Locally
-
-```bash
-# Build the Docker image
-docker build -t securescan-pro .
-
-# Run interactively
-docker run -it securescan-pro
-```
-
-### Export and Run on Another PC (Offline / USB)
-
-If you need to demonstrate the project on another machine (like a professor's or friend's PC) without moving the source code:
-
-```bash
-# 1. Save the image to a .tar file on your PC
-docker save -o securescan-pro-image.tar securescan-pro
-
-# [Copy the securescan-pro-image.tar file via USB to the second PC]
-
-# 2. Load the image on the second PC
-docker load -i securescan-pro-image.tar
-
-# 3. Run the project interactively
-docker run -it securescan-pro
-```
-
-The `.dockerignore` file ensures build artifacts (`bin/`, `obj/`) are excluded from the image.
+1. **Take Baseline Snapshot:** Enter a directory. The app calculates the cryptographic hashes of all files and saves a baseline.
+2. **Quick Integrity Check:** Scan the same directory again. The system will color-code files that are Intact (Green), Modified (Yellow/Red), Deleted, or New.
+3. **Export Reports:** Found an issue? Export the results as `TXT`, `JSON`, or `CSV` to share with your security team.
 
 ---
 
-## 📋 Configuration File
+## 🤝 Contributing (You're Invited!)
 
-`config.json` is created automatically on first run (or first settings save):
+**We want YOU to contribute!**  
+Whether you are a beginner looking to make your first open-source contribution, or an advanced C# developer wanting to add new security features, your help is welcome!
 
-```json
-{
-  "DefaultDirectory": "C:\\Users\\YourName\\Documents",
-  "DefaultAlgorithm": "SHA256",
-  "EnableAlerts": true,
-  "ReportsFolder": "Reports"
-}
-```
+### How you can contribute:
+- 🐛 **Find & Fix Bugs:** Notice an issue? Open an issue or submit a Pull Request.
+- ✨ **Add New Features:** Want to add cloud-backup for reports? Or a new hashing algorithm? Go for it!
+- 📚 **Improve Documentation:** Help us make this README even better.
+- 🎨 **Enhance the UI:** Make the console ASCII art and colors even more beautiful.
 
----
+### Steps to Contribute:
+1. **Fork** this repository.
+2. **Clone** your fork locally.
+3. **Create a new branch** (`git checkout -b feature/MyAwesomeFeature`).
+4. **Commit your changes** (`git commit -m "Add some AwesomeFeature"`).
+5. **Push to the branch** (`git push origin feature/MyAwesomeFeature`).
+6. **Open a Pull Request** and we will review it ASAP!
 
-## 📁 Generated Files
-
-| File | Description |
-|---|---|
-| `baseline_snapshot.json` | The saved baseline — regenerated on every "Take Baseline" |
-| `config.json` | Your persisted settings |
-| `app.log` | Thread-safe log written by `AppLogger` (located in the `bin/` output folder) |
-| `Reports/report_YYYYMMDD_HHmmss.txt` | Exported TXT report |
-| `Reports/report_YYYYMMDD_HHmmss.json` | Exported JSON report |
-| `Reports/report_YYYYMMDD_HHmmss.csv` | Exported CSV report |
-
----
-
-## 👨‍💻 Author
-
-Built as a comprehensive OOP showcase project in **C# 12 / .NET 8**.
-
-> *Every class, method, and design decision in this project was made deliberately to demonstrate a specific OOP principle — making it an ideal reference for learning advanced C# architecture.*
+Let's build the best open-source console security tool together! 🚀
 
 ---
 
 <div align="center">
-
 **🛡️ SecureScan Pro** — *Stay Secure. Detect Changes. Trust Nothing.*
-
 </div>
