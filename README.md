@@ -404,14 +404,33 @@ dotnet run --project FileIntegrityChecker/FileIntegrityChecker.csproj
 
 ## 🐳 Docker Support
 
-The application ships with a `Dockerfile` for containerized deployments.
+The application ships with a `Dockerfile` for containerized deployments. This is especially useful for running the app on any other machine without needing to install the .NET SDK.
+
+### Build and Run Locally
 
 ```bash
 # Build the Docker image
 docker build -t securescan-pro .
 
-# Run interactively (mount a local folder to scan)
-docker run -it --rm -v "C:\MyFiles:/data" securescan-pro
+# Run interactively
+docker run -it securescan-pro
+```
+
+### Export and Run on Another PC (Offline / USB)
+
+If you need to demonstrate the project on another machine (like a professor's or friend's PC) without moving the source code:
+
+```bash
+# 1. Save the image to a .tar file on your PC
+docker save -o securescan-pro-image.tar securescan-pro
+
+# [Copy the securescan-pro-image.tar file via USB to the second PC]
+
+# 2. Load the image on the second PC
+docker load -i securescan-pro-image.tar
+
+# 3. Run the project interactively
+docker run -it securescan-pro
 ```
 
 The `.dockerignore` file ensures build artifacts (`bin/`, `obj/`) are excluded from the image.
