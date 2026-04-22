@@ -11,6 +11,7 @@ public static class AppConstants
     public const string SnapshotFile  = "baseline_snapshot.json";
     public const string ConfigFile    = "config.json";
     public const string ReportsFolder = "Reports";
+    public const string EnvFile       = ".env";
     public const int    MaxHistory    = 5;
     public const string DateFormat    = "yyyy-MM-dd HH:mm:ss";
 }

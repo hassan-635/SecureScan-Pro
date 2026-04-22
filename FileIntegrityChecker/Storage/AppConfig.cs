@@ -38,6 +38,9 @@ public class AppConfig : IConfigurable, IStorable
     public bool EnableAlerts { get; set; } = true;
     public string ReportsFolder { get; set; } = AppConstants.ReportsFolder;
 
+    // Loaded from .env at startup via EnvManager — NOT stored in config.json
+    public string GeminiApiKey { get; set; } = string.Empty;
+
     // OOP: IConfigurable — load from JSON
     public void LoadConfig(string configFilePath)
     {
@@ -50,6 +53,7 @@ public class AppConfig : IConfigurable, IStorable
             if (doc.TryGetProperty("DefaultAlgorithm", out var alg))  DefaultAlgorithm  = Enum.Parse<HashAlgorithmType>(alg.GetString() ?? "SHA256");
             if (doc.TryGetProperty("EnableAlerts",     out var alert)) EnableAlerts      = alert.GetBoolean();
             if (doc.TryGetProperty("ReportsFolder",    out var rep))   ReportsFolder     = rep.GetString() ?? AppConstants.ReportsFolder;
+            // GeminiApiKey intentionally NOT loaded from config.json — use EnvManager
         }
         catch { /* Silently fall back to defaults on corrupt config */ }
     }
@@ -57,6 +61,7 @@ public class AppConfig : IConfigurable, IStorable
     // OOP: IConfigurable — save to JSON
     public void SaveConfig(string configFilePath)
     {
+        // GeminiApiKey intentionally excluded — secrets stay in .env, never in config.json
         var obj = new { DefaultDirectory, DefaultAlgorithm = DefaultAlgorithm.ToString(), EnableAlerts, ReportsFolder };
         File.WriteAllText(configFilePath, JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true }));
     }

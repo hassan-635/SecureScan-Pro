@@ -7,9 +7,12 @@ obj/
 *.suo
 *.log
 
-
 Project_Defense_Report.md
-
 LinkedIn_Post
 Docker_Setup_Guide.md
 
+# Ignore environment variables
+.env
+
+# Ignore Docker exports
+securescan-pro-image.tar

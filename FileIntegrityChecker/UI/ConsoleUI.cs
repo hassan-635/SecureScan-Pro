@@ -1,3 +1,4 @@
+using FileIntegrityChecker.Abstractions;
 using FileIntegrityChecker.Enums;
 using FileIntegrityChecker.Models;
 using FileIntegrityChecker.Scanners;
@@ -18,16 +19,18 @@ public class ConsoleUI
     private readonly IntegrityMonitor _monitor;
     private readonly ReportGenerator  _reporter;
     private readonly AppConfig        _config;
+    private readonly IAiAnalyzer      _aiAnalyzer;
 
     private string? _lastScanTime;
     private bool    _firstRun = true;
 
     // OOP: Parameterized Constructor — manual DI
-    public ConsoleUI(IntegrityMonitor monitor, ReportGenerator reporter, AppConfig config)
+    public ConsoleUI(IntegrityMonitor monitor, ReportGenerator reporter, AppConfig config, IAiAnalyzer aiAnalyzer)
     {
         _monitor  = monitor;
         _reporter = reporter;
         _config   = config;
+        _aiAnalyzer = aiAnalyzer;
 
         // OOP: Event Subscription
         _monitor.OnAlert += HandleAlert;
@@ -54,7 +57,7 @@ public class ConsoleUI
                 _lastScanTime
             );
 
-            ConsoleHelper.PrintPrompt("Enter choice (1-9)");
+            ConsoleHelper.PrintPrompt("Enter choice (1-10)");
             string? input = Console.ReadLine()?.Trim();
 
             try
@@ -69,10 +72,11 @@ public class ConsoleUI
                     case "5": ManageAlerts();      break;
                     case "6": ViewSavedReports();  break;
                     case "7": ExportReport();      break;
-                    case "8": ConfigureSettings(); break;
-                    case "9": ExitApp(); return;
+                    case "8": GenerateAiSummary(); break;
+                    case "9": ConfigureSettings(); break;
+                    case "10": ExitApp(); return;
                     default:
-                        ConsoleHelper.PrintWarning("Invalid choice. Please enter 1 - 9.");
+                        ConsoleHelper.PrintWarning("Invalid choice. Please enter 1 - 10.");
                         Pause();
                         break;
                 }
@@ -445,7 +449,64 @@ public class ConsoleUI
         WaitOrBack();
     }
 
-    // ── 8. Configure Settings ─────────────────────────────────────
+    // ── 8. Generate AI Security Brief ─────────────────────────────
+    private void GenerateAiSummary()
+    {
+        TryClear();
+        ConsoleHelper.PrintSubHeader("AI SECURITY BRIEF",
+            "Generate an AI-powered summary of the last scan report");
+
+        if (_monitor.LastReport is null)
+        {
+            ConsoleHelper.PrintWarning("No scan available. Run a Quick Check or Deep Scan first.");
+            ConsoleHelper.PrintSubFooter();
+            WaitOrBack();
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_config.GeminiApiKey))
+        {
+            ConsoleHelper.PrintWarning("Gemini API Key is missing. Please set it in Settings (Option 9).");
+            ConsoleHelper.PrintSubFooter();
+            WaitOrBack();
+            return;
+        }
+
+        Console.WriteLine();
+        ConsoleHelper.TypeWriter("  Sending data to Google Gemini AI", ConsoleColor.DarkGray, 15);
+        ConsoleHelper.AnimateDots(3, 280);
+        Console.WriteLine();
+
+        // Run async operation synchronously for console flow
+        string summary = _aiAnalyzer.SummarizeReportAsync(_monitor.LastReport).GetAwaiter().GetResult();
+
+        TryClear();
+        ConsoleHelper.PrintSubHeader("AI SECURITY BRIEF", "Gemini 2.5 Flash Summary");
+        
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        // Basic wrapping for long text
+        int wrapLength = 65;
+        var words = summary.Split(' ');
+        var line = "";
+        foreach (var word in words)
+        {
+            if (line.Length + word.Length > wrapLength)
+            {
+                Console.WriteLine($"  {line}");
+                line = "";
+            }
+            line += word + " ";
+        }
+        if (line.Length > 0) Console.WriteLine($"  {line}");
+        
+        Console.ResetColor();
+        Console.WriteLine();
+        ConsoleHelper.PrintSubFooter();
+        WaitOrBack();
+    }
+
+    // ── 9. Configure Settings ─────────────────────────────────────
     private void ConfigureSettings()
     {
         while (true)
@@ -460,11 +521,12 @@ public class ConsoleUI
                 $"[2]  Hash Algorithm    : {_config.DefaultAlgorithm}",
                 $"[3]  Alerts Enabled    : {(_config.EnableAlerts ? "Yes" : "No")}",
                 $"[4]  Reports Folder    : {_config.ReportsFolder}",
+                $"[5]  Gemini API Key    : {(string.IsNullOrWhiteSpace(_config.GeminiApiKey) ? "Not Set" : new string('*', 12))}",
                 "---------------------------------------------------",
                 "[0]  Save & Back to Main Menu",
             });
 
-            ConsoleHelper.PrintPrompt("Setting to change (1-4)  /  0 to save & exit");
+            ConsoleHelper.PrintPrompt("Setting to change (1-5)  /  0 to save & exit");
             string? ch = Console.ReadLine()?.Trim();
 
             switch (ch)
@@ -514,8 +576,15 @@ public class ConsoleUI
                         _config.ReportsFolder = rf;
                     break;
 
+                case "5":
+                    ConsoleHelper.PrintPrompt("Enter Gemini API Key");
+                    string? k = Console.ReadLine()?.Trim();
+                    if (!string.IsNullOrWhiteSpace(k))
+                        _config.GeminiApiKey = k;
+                    break;
+
                 default:
-                    ConsoleHelper.PrintWarning("Invalid choice. Enter 1-4 or 0.");
+                    ConsoleHelper.PrintWarning("Invalid choice. Enter 1-5 or 0.");
                     Pause();
                     break;
             }

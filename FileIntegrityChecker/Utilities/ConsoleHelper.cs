@@ -98,15 +98,16 @@ public static class ConsoleHelper
         // Menu items
         (string num, string sym, string label)[] items =
         {
-            ("1", "[1]", "Take Baseline Snapshot"),
-            ("2", "[2]", "Quick Integrity Check"),
-            ("3", "[3]", "Deep Scan  (Permissions + Metadata)"),
-            ("4", "[4]", "View Scan History"),
-            ("5", "[5]", "Manage Alerts"),
-            ("6", "[6]", "View Saved Reports"),
-            ("7", "[7]", "Export Report  (TXT / JSON / CSV)"),
-            ("8", "[8]", "Configure Settings"),
-            ("9", "[9]", "Exit"),
+            ("1",  "[1]",  "Take Baseline Snapshot"),
+            ("2",  "[2]",  "Quick Integrity Check"),
+            ("3",  "[3]",  "Deep Scan  (Permissions + Metadata)"),
+            ("4",  "[4]",  "View Scan History"),
+            ("5",  "[5]",  "Manage Alerts"),
+            ("6",  "[6]",  "View Saved Reports"),
+            ("7",  "[7]",  "Export Report  (TXT / JSON / CSV)"),
+            ("8",  "[8]",  "AI Security Brief  (Powered by Gemini)"),
+            ("9",  "[9]",  "Configure Settings"),
+            ("10", "[10]", "Exit"),
         };
 
         foreach (var (_, sym, label) in items)

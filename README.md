@@ -53,6 +53,7 @@ The main goal of this project is to solve a real-world cybersecurity problem whi
 | 📸 **Baseline Snapshots** | Save a cryptographic fingerprint of any directory |
 | ⚡ **Quick Integrity Check** | Fast comparison against the saved baseline |
 | 🔬 **Deep Scan** | Advanced scan with file permissions and metadata analysis |
+| 🤖 **AI Security Brief** | Generate an AI-powered human-readable summary using Gemini |
 | 📊 **Report Export** | Export reports as TXT, JSON, or CSV files |
 | 🚨 **Real-Time Alerts** | Color-coded alerts for modified, deleted, and new files |
 | 📜 **Scan History** | Keeps a rolling log of the last 5 scan reports |
@@ -156,7 +157,8 @@ When you run the app, you will be greeted with a stunning, interactive ASCII con
 
 1. **Take Baseline Snapshot:** Enter a directory. The app calculates the cryptographic hashes of all files and saves a baseline.
 2. **Quick Integrity Check:** Scan the same directory again. The system will color-code files that are Intact (Green), Modified (Yellow/Red), Deleted, or New.
-3. **Export Reports:** Found an issue? Export the results as `TXT`, `JSON`, or `CSV` to share with your security team.
+3. **AI Security Brief:** Ask the integrated AI to summarize the scan results into a readable security brief.
+4. **Export Reports:** Found an issue? Export the results as `TXT`, `JSON`, or `CSV` to share with your security team.
 
 ---
 
