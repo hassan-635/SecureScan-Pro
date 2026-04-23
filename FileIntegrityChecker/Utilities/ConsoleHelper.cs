@@ -105,7 +105,7 @@ public static class ConsoleHelper
             ("5",  "[5]",  "Manage Alerts"),
             ("6",  "[6]",  "View Saved Reports"),
             ("7",  "[7]",  "Export Report  (TXT / JSON / CSV)"),
-            ("8",  "[8]",  "AI Security Brief  (Powered by Gemini)"),
+            ("8",  "[8]",  "AI Security Brief  (Powered by Grok AI)"),
             ("9",  "[9]",  "Configure Settings"),
             ("10", "[10]", "Exit"),
         };

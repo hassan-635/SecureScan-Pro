@@ -53,7 +53,7 @@ The main goal of this project is to solve a real-world cybersecurity problem whi
 | 📸 **Baseline Snapshots** | Save a cryptographic fingerprint of any directory |
 | ⚡ **Quick Integrity Check** | Fast comparison against the saved baseline |
 | 🔬 **Deep Scan** | Advanced scan with file permissions and metadata analysis |
-| 🤖 **AI Security Brief** | Generate an AI-powered human-readable summary using Google Gemini (Flash 2.5) |
+| 🤖 **AI Security Brief** | Generate an AI-powered human-readable summary using Grok AI |
 | 📊 **Report Export** | Export reports as TXT, JSON, or CSV files |
 | 🚨 **Real-Time Alerts** | Color-coded alerts for modified, deleted, and new files |
 | 📜 **Scan History** | Keeps a rolling log of the last 5 scan reports |
@@ -136,9 +136,9 @@ Use this method if you have the .NET 8 SDK installed on your machine.
    ```
 
 **First Run & AI API Key Setup:**
-When you run the app for the very first time, it will prompt you for a **Google Gemini API Key**.
+When you run the app for the very first time, it will prompt you for a **Grok API Key**.
 - This key is required for the "AI Security Brief" feature.
-- It takes 30 seconds to get a free key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+- It takes 30 seconds to get a key from [xAI Console](https://console.x.ai/).
 - Once pasted into the console, the app automatically saves it to a `.env` file in the build directory. This file is strictly excluded via `.gitignore` so your key is never exposed to GitHub!
 
 ### Method 2: Using Docker (Containerized)
