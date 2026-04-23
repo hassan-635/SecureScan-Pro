@@ -2,18 +2,18 @@ namespace FileIntegrityChecker.Utilities;
 
 /// <summary>
 /// Manages the .env file for storing secret configuration like API keys.
-/// On startup, ensures the Gemini API key exists — if not, guides the user
+/// On startup, ensures the Grok API key exists — if not, guides the user
 /// to obtain and paste it, then saves it automatically.
 /// </summary>
 // OOP: Static utility class — groups all env-related logic in one place
 public static class EnvManager
 {
-    private const string ApiKeyVariable = "GEMINI_API_KEY";
+    private const string ApiKeyVariable = "GROK_API_KEY";
 
     // ── Public API ──────────────────────────────────────────────────────────
 
     /// <summary>
-    /// Reads GEMINI_API_KEY from the .env file.
+    /// Reads GROK_API_KEY from the .env file.
     /// Returns empty string if file or key doesn't exist.
     /// </summary>
     public static string LoadApiKey()
@@ -49,20 +49,20 @@ public static class EnvManager
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("  ╔══════════════════════════════════════════════════════════════╗");
-        Console.WriteLine("  ║              [!]  GEMINI API KEY NOT FOUND                  ║");
+        Console.WriteLine("  ║               [!]  GROK API KEY NOT FOUND                  ║");
         Console.WriteLine("  ╚══════════════════════════════════════════════════════════════╝");
         Console.ResetColor();
 
         Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine();
-        Console.WriteLine("  AI Security Brief feature requires a free Gemini API key.");
+        Console.WriteLine("  AI Security Brief feature requires a Grok API key.");
         Console.WriteLine();
-        Console.WriteLine("  How to get your FREE API key (takes 30 seconds):");
+        Console.WriteLine("  How to get your API key:");
         Console.ResetColor();
         Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("    1. Open: https://aistudio.google.com/app/apikey");
-        Console.WriteLine("    2. Click [Get API key] --> [Create API key]");
-        Console.WriteLine("    3. Copy the key (starts with 'AIza...')");
+        Console.WriteLine("    1. Open: https://console.x.ai/");
+        Console.WriteLine("    2. Create an API key");
+        Console.WriteLine("    3. Copy the key");
         Console.ResetColor();
 
         Console.WriteLine();

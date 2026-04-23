@@ -464,16 +464,16 @@ public class ConsoleUI
             return;
         }
 
-        if (string.IsNullOrWhiteSpace(_config.GeminiApiKey))
+        if (string.IsNullOrWhiteSpace(_config.GrokApiKey))
         {
-            ConsoleHelper.PrintWarning("Gemini API Key is missing. Please set it in Settings (Option 9).");
+            ConsoleHelper.PrintWarning("Grok API Key is missing. Please set it in Settings (Option 9).");
             ConsoleHelper.PrintSubFooter();
             WaitOrBack();
             return;
         }
 
         Console.WriteLine();
-        ConsoleHelper.TypeWriter("  Sending data to Google Gemini AI", ConsoleColor.DarkGray, 15);
+        ConsoleHelper.TypeWriter("  Sending data to Grok AI", ConsoleColor.DarkGray, 15);
         ConsoleHelper.AnimateDots(3, 280);
         Console.WriteLine();
 
@@ -481,7 +481,7 @@ public class ConsoleUI
         string summary = _aiAnalyzer.SummarizeReportAsync(_monitor.LastReport).GetAwaiter().GetResult();
 
         TryClear();
-        ConsoleHelper.PrintSubHeader("AI SECURITY BRIEF", "Gemini 2.5 Flash Summary");
+        ConsoleHelper.PrintSubHeader("AI SECURITY BRIEF", "Grok Summary");
         
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Cyan;
@@ -521,7 +521,7 @@ public class ConsoleUI
                 $"[2]  Hash Algorithm    : {_config.DefaultAlgorithm}",
                 $"[3]  Alerts Enabled    : {(_config.EnableAlerts ? "Yes" : "No")}",
                 $"[4]  Reports Folder    : {_config.ReportsFolder}",
-                $"[5]  Gemini API Key    : {(string.IsNullOrWhiteSpace(_config.GeminiApiKey) ? "Not Set" : new string('*', 12))}",
+                $"[5]  Grok API Key      : {(string.IsNullOrWhiteSpace(_config.GrokApiKey) ? "Not Set" : new string('*', 12))}",
                 "---------------------------------------------------",
                 "[0]  Save & Back to Main Menu",
             });
@@ -577,10 +577,10 @@ public class ConsoleUI
                     break;
 
                 case "5":
-                    ConsoleHelper.PrintPrompt("Enter Gemini API Key");
+                    ConsoleHelper.PrintPrompt("Enter Grok API Key");
                     string? k = Console.ReadLine()?.Trim();
                     if (!string.IsNullOrWhiteSpace(k))
-                        _config.GeminiApiKey = k;
+                        _config.GrokApiKey = k;
                     break;
 
                 default:
