@@ -123,7 +123,7 @@ Use this method if you have the .NET 8 SDK installed on your machine.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/SecureScan-Pro.git
+   git clone https://github.com/hassan-635/SecureScan-Pro.git
    cd "SecureScan Pro"
    ```
 2. **Build the project:**
